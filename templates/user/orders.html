@@ -1,0 +1,72 @@
+<!-- templates/user/orders.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Orders</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      height: 100%;
+    }
+    .content-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <nav class="navbar navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/user/dashboard">📚 Bookstore</a>
+        <div class="d-flex">
+          <a href="/cart" class="btn btn-outline-light me-2">Cart</a>
+          <a href="/logout" class="btn btn-light">Logout</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-4 main-content">
+      <h2 class="mb-4">My Orders</h2>
+      <div id="orderList"></div>
+    </div>
+
+    <footer class="text-center text-white py-4 bg-primary">
+      &copy; 2024 Online Bookstore. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    async function loadOrders() {
+      const res = await fetch('/get_orders');
+      const orders = await res.json();
+      const container = document.getElementById('orderList');
+
+      if (!orders.length) {
+        container.innerHTML = '<p>You have not placed any orders yet.</p>';
+        return;
+      }
+
+      container.innerHTML = orders.map(o => `
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Order #${o.id}</h5>
+            <p class="card-text">Status: <strong>${o.status}</strong></p>
+            <p class="card-text">Date: ${new Date(o.order_date).toLocaleString()}</p>
+            <p class="card-text">Total: ₹${o.total_amount}</p>
+            <a href="/get_order_details/${o.id}" class="btn btn-outline-primary">View Items</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>

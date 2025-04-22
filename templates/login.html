@@ -1,0 +1,68 @@
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      height: 100%;
+    }
+    .content-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <nav class="navbar navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">📚 Online Bookstore</a>
+        <div class="d-flex">
+          <a href="/login" class="btn btn-outline-light me-2">Login</a>
+          <a href="/register" class="btn btn-outline-light">Register</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-5 main-content d-flex flex-column justify-content-center align-items-center">
+      <h2 class="text-center mb-4">Login</h2>
+      <form action="/login" method="POST" class="w-100" style="max-width: 500px;" onsubmit="return validateLoginForm()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+        <p class="text-center mt-3">Don't have an account? <a href="/register">Register</a></p>
+      </form>
+    </div>
+
+    <footer class="text-center text-white py-4 bg-primary">
+      &copy; 2024 Online Bookstore. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    function validateLoginForm() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      if (!email || !password) {
+        alert('Please enter both email and password.');
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
