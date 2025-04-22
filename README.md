@@ -1,4 +1,4 @@
-# ⛽ FuelNow – Online Fuel Ordering System
+# ⛽ FuelNow – Book Store
 FuelNow is a full-stack web application that allows customers to book fuel
 deliveries online and lets administrators manage orders, fuels, and users.
 ---
